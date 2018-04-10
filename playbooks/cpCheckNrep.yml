@@ -1,0 +1,18 @@
+---
+
+- hosts: appServers,webServers,dbServers
+  remote_user: centos
+  become: true
+  become_method: sudo
+  become_user: root
+
+  tasks:
+
+
+   - copy:
+       src: nrpeFile/check_nrpe
+       dest: /usr/local/nagios/libexec/
+       owner: root
+       group: root
+       mode: 0755
+

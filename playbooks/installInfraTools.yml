@@ -1,0 +1,24 @@
+---
+
+- hosts: all
+  remote_user: centos
+  become: true
+  become_method: sudo
+  become_user: root
+
+  tasks:
+
+   - name: "Install infra tools"
+     yum: state=present name={{ item }}
+     with_items:
+     - iftop
+     - atop
+     - nethogs
+     - iotop
+     - iptraf
+     - htop
+     - net-tools
+     - tcpdump
+     - sysstat
+
+

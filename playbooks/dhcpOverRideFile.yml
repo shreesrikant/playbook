@@ -1,0 +1,44 @@
+---
+
+- hosts: 172.25.2.63
+  remote_user: centos
+  become: true
+  become_method: sudo
+  become_user: root
+
+  tasks:
+
+#   - name: "Install ClamAV"
+#     yum: state=present name={{ item }}
+#     with_items:
+#     - epel-release
+#     - clamav-server
+#     - clamav-data
+#     - clamav-update
+#     - clamav-filesystem
+#     - clamav
+#     - clamav-scanner-systemd
+#     - clamav-devel
+#     - clamav-lib
+#     - clamav-server-systemd
+
+
+#  - name: Install ClamAV basics
+#    yum: name=clamav state=latest
+#
+#  - name: Install ClamAV basics
+#    yum: name=clamav state=latest
+#
+#  - name: Install ClamAV scanner
+#    yum: name=clamav-scanner state=latest
+#
+#  - name: Install ClamAV updater
+#    yum: name=clamav-update state=latest
+
+   - copy:
+       src: dhcpOverRideFile/dhclient.conf
+       dest: /etc/dhcp/dhclient.conf
+       owner: root
+       group: root
+       mode: 0644
+

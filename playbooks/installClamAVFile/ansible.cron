@@ -1,0 +1,1 @@
+0 3 * * * root /usr/bin/freshclam ; /usr/bin/clamscan /usr/bin/clamscan /home /tmp /etc /apps /boot /dev /root /usr /var --recursive=yes -i | mail -s clamav_log_`hostname` customer.support@aadhaarbridge.com -

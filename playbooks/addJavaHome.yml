@@ -1,0 +1,14 @@
+---
+
+- hosts: appServers 
+  remote_user: centos
+  become: true
+  become_method: sudo
+  become_user: root
+
+  tasks:
+
+   - lineinfile:
+       path: /etc/profile 
+       state: present
+       line: 'export JAVA_HOME=/usr/lib/jvm/java'

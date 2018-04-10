@@ -1,0 +1,16 @@
+---
+
+- hosts: null 
+  remote_user: centos
+  become: true
+  become_method: sudo
+  become_user: root
+
+  tasks:
+
+   - lineinfile:
+       path: /etc/resolv.conf   
+       state: present
+       regexp: '^nameserver.*'
+       line: 'nameserver 172.25.1.140
+nameserver 172.25.1.90'

@@ -1,0 +1,17 @@
+---
+
+- hosts: null
+  remote_user: centos
+  become: true
+  become_method: sudo
+  become_user: root
+
+  tasks:
+
+   - lineinfile:
+       path: /etc/sudoers
+       state: present
+#       regexp: '^jayadeep'
+       line: 'jaydeepg ALL=(ALL) NOPASSWD: ALL'
+#       validate: '/usr/sbin/visudo -cf %s'
+
