@@ -1,0 +1,43 @@
+---
+- name: ADD host name to /etc/hosts file
+  hosts: all
+  remote_user: centos
+  become: true
+  become_method: sudo
+  become_user: root
+
+  tasks:
+ # - name: install ntp in all hosts
+ #   yum: name=ntp state=latest
+ # - name: write ntp config file
+ #   template: src=/home/centos/initial-files/ntp.conf dest=/etc/ntp.conf
+#  - name: change file permission
+#    file: path=/etc/ntp.conf owner=root group=root mode=0600
+#    notify:
+#    - restart ntp
+
+   - name: ADD host name to /etc/hosts file
+     blockinfile:
+             dest: /etc/resolv.conf
+             block: |
+                        nameserver 172.20.0.112
+                        nameserver 172.20.0.175
+#     notify:
+#     - restart network
+
+
+
+#  - name: copy banner file
+#    template: src=/home/centos/initial-files/banner dest=/etc/ssh/banner
+#  - name: copy grub file
+#    template: src=/home/centos/initial-files/grub dest=/etc/default/grub
+#  - name: change file permission for grub
+#    file: path=/etc/ntp.conf owner=root group=root mode=0600
+#
+#  - name: copy sshd config file
+#    template: src=/home/centos/initial-files/sshd_config dest=/etc/default/grub
+#  - name: change file permission for grub
+#    file: path=/etc/default/grub owner=root group=root mode=0600
+
+        
+

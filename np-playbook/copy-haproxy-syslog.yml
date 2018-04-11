@@ -1,0 +1,24 @@
+---
+- name: Copy rsyslog config for haproxy in all hosts
+  hosts: webapp
+  remote_user: centos
+  become: true
+  become_method: sudo
+  become_user: root
+
+  tasks:
+  - name: Copy haproxy.conf in all hosts
+    synchronize:
+     src : /home/centos/initial-files/haproxy.conf
+     dest: /etc/rsyslog.d/haproxy.conf
+  - name: copy rsyslog.conf to all hosts
+    synchronize:
+     src : /home/centos/initial-files/rsyslog.conf
+     dest: /etc/rsyslog.conf
+    notify:
+     - restart rsyslog
+
+
+  handlers:
+  - name: restart rsyslog
+    service: name=rsyslog state=restarted

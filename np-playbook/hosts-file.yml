@@ -1,0 +1,61 @@
+---
+- name: Install NTP in all hosts
+  hosts: all
+  remote_user: centos
+  become: true
+  become_method: sudo
+  become_user: root
+
+  tasks:
+ # - name: install ntp in all hosts
+ #   yum: name=ntp state=latest
+ # - name: write ntp config file
+ #   template: src=/home/centos/initial-files/ntp.conf dest=/etc/ntp.conf
+#  - name: change file permission
+#    file: path=/etc/ntp.conf owner=root group=root mode=0600
+#    notify:
+#    - restart ntp
+
+   - name: Add mappings to /etc/hosts
+     blockinfile:
+             dest: /etc/hosts
+             block: |
+                {{ item.ip }} {{ item.name }}
+             marker: "# {mark} ANSIBLE MANAGED BLOCK {{ item.name }}"
+     with_items:
+             - { ip: 172.20.4.231, name: db01.novopay.in }
+             - { ip: 172.20.4.232, name: db02.novopay.in }
+             - { ip: 172.20.5.203, name: db03.novopay.in }
+             - { ip: 172.20.6.246, name: es01.novopay.in }
+             - { ip: 172.20.6.247, name: es02.novopay.in }
+             - { ip: 172.20.6.248, name: es03.novopay.in }
+             - { ip: 172.20.4.197, name: replica.novopay.in }
+             - { ip: 172.20.2.39, name: nagios.novopay.in }
+             - { ip: 172.20.4.133, name: mysql-backup.novopay.in }
+             - { ip: 172.20.0.112, name: jump.novopay.in }
+             - { ip: 172.20.2.28, name: portal.novopay.in }
+             - { ip: 172.20.2.22, name: reporting.novopay.in }
+             - { ip: 172.20.2.126, name: sales.novopay.in }
+             - { ip: 172.20.2.76, name: services.novopay.in }
+             - { ip: 172.20.2.160, name: wallet01.novopay.in }
+             - { ip: 172.20.3.77, name: wallet02.novopay.in }
+             - { ip: 172.20.0.175, name: web.novopay.in }
+             - { ip: 172.20.7.132, name: webapp.novopay.in }
+
+#  - name: copy banner file
+#    template: src=/home/centos/initial-files/banner dest=/etc/ssh/banner
+#  - name: copy grub file
+#    template: src=/home/centos/initial-files/grub dest=/etc/default/grub
+#  - name: change file permission for grub
+#    file: path=/etc/ntp.conf owner=root group=root mode=0600
+#
+#  - name: copy sshd config file
+#    template: src=/home/centos/initial-files/sshd_config dest=/etc/default/grub
+#  - name: change file permission for grub
+#    file: path=/etc/default/grub owner=root group=root mode=0600
+
+        
+
+  handlers:
+  - name: restart ntp
+    service: name=ntpd state=restarted

@@ -1,0 +1,10 @@
+---
+- name: Copy nrpe in all hosts
+  hosts: all
+  remote_user: centos
+
+tasks:
+  - name: Copy nrpe in all hosts
+        synchronize:
+        src : /home/centos/nagios-client 
+        dest: /home/centos/

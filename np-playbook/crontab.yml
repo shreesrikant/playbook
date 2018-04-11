@@ -1,0 +1,8 @@
+---
+- hosts: all
+  remote_user: centos
+  become: true
+  become_method: sudo
+  become_user: root
+
+- cron: 'name="Clamav Scan" hour="1" minute="0" weekday="*" job="/root/clamav/clamav.sh"'  #2>&1 > /root/clamav/clamav.log"

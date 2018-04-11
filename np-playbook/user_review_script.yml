@@ -1,0 +1,15 @@
+---
+- name: mail user list of server
+  hosts: infra 
+  remote_user: centos
+  become: true
+  become_method: sudo
+  become_user: root
+
+  tasks:
+   - name: Copy haproxy.conf in all hosts
+     synchronize:
+       src : /home/centos/user_review.sh
+       dest: /home/centos/user_review.sh
+   - name:
+     command: sh /home/centos/user_review.sh >> /dev/null

@@ -1,0 +1,46 @@
+---
+- name: Install sysstat in all hosts
+  hosts: all
+  remote_user: centos
+  become: true
+  become_method: sudo
+  become_user: root
+
+  tasks:
+ # - name: install ntp in all hosts
+ #   yum: name=ntp state=latest
+ # - name: write ntp config file
+ #   template: src=/home/centos/initial-files/ntp.conf dest=/etc/ntp.conf
+#  - name: change file permission
+#    file: path=/etc/ntp.conf owner=root group=root mode=0600
+#    notify:
+#    - restart ntp
+
+  - name: "Install sysstat from CentOS mirror"
+    yum: state=present name=sysstat
+#    with_items:
+#    - epel-release
+#    - htop
+#    - sysstat
+#    - bind-utils
+#    - telnet
+#    - wget
+
+
+  - name: copy cronjob file
+    template: src=/home/centos/initial-files/sysstat dest=/etc/cron.d/sysstat
+#  - name: copy grub file
+#    template: src=/home/centos/initial-files/grub dest=/etc/default/grub
+#  - name: change file permission for grub
+#    file: path=/etc/ntp.conf owner=root group=root mode=0600
+#
+#  - name: copy sshd config file
+#    template: src=/home/centos/initial-files/sshd_config dest=/etc/default/grub
+#  - name: change file permission for grub
+#    file: path=/etc/default/grub owner=root group=root mode=0600
+
+        
+
+#  handlers:
+#  - name: restart ntp
+#    service: name=ntpd state=restarted

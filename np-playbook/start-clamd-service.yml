@@ -1,0 +1,13 @@
+---
+- name: start clamav in all hosts
+  hosts: clamav
+  remote_user: centos
+  become: true
+  become_method: sudo
+  become_user: root
+
+  tasks:
+         - name: "Start ClamAV service through systemctls"
+           systemd:
+                name: clamd
+                state: started

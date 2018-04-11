@@ -1,0 +1,14 @@
+---
+- name: Copy clamav files in all hosts
+  hosts: clamav
+  remote_user: centos
+  become: true
+  become_method: sudo
+  become_user: root
+
+  tasks:
+  - name: Copy clamav files  in all hosts
+    synchronize:
+        src : /home/centos/script/clamav.sh
+        dest: /home/centos
+        

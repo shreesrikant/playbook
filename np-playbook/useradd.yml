@@ -1,0 +1,20 @@
+---
+- hosts: all
+  remote_user: centos
+  become: true
+  become_method: sudo
+  become_user: root
+
+  #Define user and password variables
+  vars:
+    #created with:
+    # python -c 'python -c 'import crypt; print crypt.crypt("guest123", "guest")'
+    password : ar5Oe/.y4RkTo 
+    user : arun 
+  # Define task to add user
+  tasks:
+       - name: add user
+         action: user name={{ user }} password={{ password }} update_password=always
+                                shell=/bin/bash home=/home/{{ user }}
+         tags:
+         - user

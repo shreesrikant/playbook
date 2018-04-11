@@ -1,0 +1,12 @@
+---
+- name: Install packege in all hosts
+  hosts: clamav 
+  remote_user: centos
+  become: true
+  become_method: sudo
+  become_user: root
+
+  tasks:
+   - name:
+     command: sh /home/centos/clamav.sh  >> somelog.txt 
+     #shell: /home/centos/clamav.sh  >> somelog.txt 
